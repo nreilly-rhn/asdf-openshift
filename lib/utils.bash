@@ -20,7 +20,9 @@ list_all_versions() {
 
 install_version() {
   declare -A tools=([opensift-client]=oc [openshift-install]=openshift-install [oc-mirror]=oc-mirror)
-  for key in "${!languages[@]}"; do echo "$key"; done
+  for tool in "${!tools[@]}"; do 
+    echo "${tool}: ${tools[$tool]}"
+  done
 	#local install_type="$1"
 	#local version="$2"
 	#local install_path="${3%/bin}/bin"
