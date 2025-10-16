@@ -5,4 +5,4 @@ versions=$(curl -sL https://mirror.openshift.com/pub/openshift-v4/clients/ocp/ \
 	| sort -t. -k 2,2n -k 3,3n \
 	| sed ':a; N; $!ba; s/\n/ /g')
 
-printf "${versions}
+printf "${versions}"
