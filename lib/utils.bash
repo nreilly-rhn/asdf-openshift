@@ -20,7 +20,8 @@ list_all_versions() {
 
 install_version() {
   declare -A tools=([opensift-client]=oc [openshift-install]=openshift-install [oc-mirror]=oc-mirror)
-  for tool in "${!tools[@]}"; do 
+  for tool in "${!tools[@]}"; do
+    curl "${curl_opts}" 
     echo "${tool}: ${tools[$tool]}"
   done
 	#local install_type="$1"
@@ -44,4 +45,36 @@ install_version() {
 	#	rm -rf "$install_path"
 	#	fail "An error occurred while installing $TOOL_NAME $version."
 	#)
+}
+
+get_arch() {
+	local machine
+	machine=$(uname -m)
+
+	if [[ "$machine" =~ "x86_64" ]]; then
+		echo "amd64"
+		return
+	elif [[ "$machine" =~ arm.* ]]; then
+		echo "$machine"
+		return
+	fi
+
+	fail "Unknown arch"
+}
+
+get_platform() {
+	local uname
+	uname=$(uname)
+
+	if [[ "$uname" =~ "Darwin" ]]; then
+		echo "darwin"
+		return
+	fi
+
+	if [[ "$uname" =~ "Linux" ]]; then
+		echo "linux"
+		return
+	fi
+
+	fail "Unknown platform"
 }
