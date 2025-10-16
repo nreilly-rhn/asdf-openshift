@@ -21,12 +21,16 @@ list_all_versions() {
 install_version() {
   declare -A tools=([opensift-client]=oc [openshift-install]=openshift-install [oc-mirror]=oc-mirror)
   for tool in "${!tools[@]}"; do
-    curl "${curl_opts}" 
+    #curl "${curl_opts}" 
     echo "${tool}: ${tools[$tool]}"
   done
-	#local install_type="$1"
-	#local version="$2"
-	#local install_path="${3%/bin}/bin"
+	local install_type="$1"
+	local version="$2"
+	local install_path="${3%/bin}/bin"
+
+  printf "${install_type}"
+  printf "${version}"
+  printf "${install_path}"
 #
 	#if [ "$install_type" != "version" ]; then
 	#	fail "asdf-$TOOL_NAME supports release installs only"
