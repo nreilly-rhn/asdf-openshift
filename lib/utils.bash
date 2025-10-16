@@ -28,7 +28,7 @@ install_version() {
   declare -A tools=([opensift-client]=oc [openshift-install]=openshift-install [oc-mirror]=oc-mirror)
   for tool in "${!tools[@]}"; do
     #curl "${curl_opts}" 
-    echo "${tool}: ${tools[$tool]}"
+    printf "${tool}: ${tools[$tool]}\n"
 	  printf "install_type: ${install_type}\n"
     printf "version: ${version}\n"
     printf "install_path: ${install_path}\n"
