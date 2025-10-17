@@ -36,7 +36,6 @@ download_release() {
     url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/${file_name}"
     #curl "${curl_opts}" 
     printf "${tool}: ${tools[$tool]}\n"
-	  printf "install_type: ${install_type}\n"
     printf "version: ${version}\n"
     printf "install_path: ${install_path}\n"
     printf "arch: ${arch}\n"
