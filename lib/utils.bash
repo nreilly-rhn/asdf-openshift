@@ -28,7 +28,7 @@ download_release() {
 	local version
 	version="$1"
   for tool in "${!tools[@]}"; do
-    if [[ ${tool == oc-mirror } ]]; then
+    if [[ ${tool} == 'oc-mirror' ]]; then
       file_name="${tool}.tar.gz"
     else
       file_name="${tool}-${platform}-${version}.tar.gz"
