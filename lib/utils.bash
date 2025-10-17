@@ -60,7 +60,7 @@ install_version() {
   
 
 	if [ "$install_type" != "version" ]; then
-		fail "asdf-$TOOL_NAME supports release installs only"
+		fail "asdf-openshift supports release installs only"
 	fi
 
 	(
@@ -75,16 +75,16 @@ install_version() {
     tar xzf "${ASDF_DOWNLOAD_PATH}"/"${filename}" -C "${ASDF_DOWNLOAD_PATH}" --exclude README.md
     cp  "${ASDF_DOWNLOAD_PATH}/${tools[$tool]}" "${install_path}" 
     done
-		cp -r "${ASDF_DOWNLOAD_PATH}"/promtool "$install_path"
+		cp -r "${ASDF_DOWNLOAD_PATH}" "$install_path"
 #
 		local tool_cmd
-		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+		tool_cmd="$(echo "${tools[$tool]}" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
 #
-		echo "$TOOL_NAME $version installation was successful!"
+		echo "${tools[$tool]} $version installation was successful!"
 	) || (
 		rm -rf "$install_path"
-		fail "An error occurred while installing $TOOL_NAME $version."
+		fail "An error occurred while installing ${tools[$tool]} $version."
 	)
 }
 
