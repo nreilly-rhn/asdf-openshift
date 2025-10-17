@@ -3,7 +3,7 @@
 set -euo pipefail
 
 declare -A tools=(
-  [opensift-client]=oc
+  [openshift-client]=oc
   [openshift-install]=openshift-install
   [oc-mirror]=oc-mirror
   [ccoctl]=ccoctl
