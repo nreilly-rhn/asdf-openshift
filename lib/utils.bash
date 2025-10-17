@@ -18,6 +18,19 @@ list_all_versions() {
   printf "${versions}"
 }
 
+download_release() {
+	local version filename url
+	version="$1"
+	filename="$2"
+
+	url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}"
+
+	echo "* Downloading $TOOL_NAME release $version..."
+	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+}
+
+
+
 install_version() {  
   local install_type="$1"
 	local version="$2"
@@ -25,8 +38,20 @@ install_version() {
   local arch="$4"
   local platform="$5"
   
-  declare -A tools=([opensift-client]=oc [openshift-install]=openshift-install [oc-mirror]=oc-mirror)
+  declare -A tools=(
+    [opensift-client]=oc
+    [openshift-install]=openshift-install
+    [oc-mirror]=oc-mirror
+    [ccoctl]=ccoctl
+    [opm]=opm
+  )
   for tool in "${!tools[@]}"; do
+    if [[ ${tool == oc-mirror } ]]; then
+      file_name="${tool}.tar.gz"
+    else
+      file_name="${tool}-${platform}-${version}.tar.gz"
+    fi
+    url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/${filename}"
     #curl "${curl_opts}" 
     printf "${tool}: ${tools[$tool]}\n"
 	  printf "install_type: ${install_type}\n"
@@ -34,6 +59,8 @@ install_version() {
     printf "install_path: ${install_path}\n"
     printf "arch: ${arch}\n"
     printf "platform: ${platform}\n"
+    printf "file_name: ${filename}\n"
+    printf "URL: ${url}\n"
   done
 #
 	#if [ "$install_type" != "version" ]; then
