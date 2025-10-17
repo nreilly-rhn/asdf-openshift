@@ -25,16 +25,15 @@ list_all_versions() {
 }
 
 download_release() {
-	local version filename url
+	local version
 	version="$1"
-	filename="$2"
   for tool in "${!tools[@]}"; do
     if [[ ${tool == oc-mirror } ]]; then
       file_name="${tool}.tar.gz"
     else
       file_name="${tool}-${platform}-${version}.tar.gz"
     fi
-    url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/${filename}"
+    url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/${file_name}"
     #curl "${curl_opts}" 
     printf "${tool}: ${tools[$tool]}\n"
 	  printf "install_type: ${install_type}\n"
@@ -45,7 +44,7 @@ download_release() {
     printf "file_name: ${filename}\n"
     printf "URL: ${url}\n"
   done
-  
+
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
