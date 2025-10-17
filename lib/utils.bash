@@ -41,7 +41,7 @@ download_release() {
     printf "version: ${version}\n"
     printf "arch: ${arch}\n"
     printf "platform: ${platform}\n"
-    printf "file_name: ${filename}\n"
+    printf "file_name: ${file_name}\n"
     printf "URL: ${url}\n"
   done
 
