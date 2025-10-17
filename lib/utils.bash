@@ -26,6 +26,8 @@ list_all_versions() {
 
 download_release() {
 	local version
+  local arch=$(get_arch)
+  local platform=$(get_platform)
 	version="$1"
   for tool in "${!tools[@]}"; do
     if [[ ${tool} == 'oc-mirror' ]]; then
@@ -37,7 +39,6 @@ download_release() {
     #curl "${curl_opts}" 
     printf "${tool}: ${tools[$tool]}\n"
     printf "version: ${version}\n"
-    printf "install_path: ${install_path}\n"
     printf "arch: ${arch}\n"
     printf "platform: ${platform}\n"
     printf "file_name: ${filename}\n"
