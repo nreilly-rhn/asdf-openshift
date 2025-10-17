@@ -47,6 +47,7 @@ download_release() {
     #printf "platform: ${platform}\n"
     #printf "filename: ${file_name}\n"
     #printf "URL: ${url}\n"
+    printf "${ASDF_DOWNLOAD_PATH}"
   done
 }
 
