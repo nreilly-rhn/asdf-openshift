@@ -2,7 +2,13 @@
 
 set -euo pipefail
 
-
+declare -A tools=(
+  [opensift-client]=oc
+  [openshift-install]=openshift-install
+  [oc-mirror]=oc-mirror
+  [ccoctl]=ccoctl
+  [opm]=opm
+)
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
 	exit 1
@@ -22,29 +28,6 @@ download_release() {
 	local version filename url
 	version="$1"
 	filename="$2"
-
-	url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}"
-
-	echo "* Downloading $TOOL_NAME release $version..."
-	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
-}
-
-
-
-install_version() {  
-  local install_type="$1"
-	local version="$2"
-	local install_path="${3%/bin}/bin"
-  local arch="$4"
-  local platform="$5"
-  
-  declare -A tools=(
-    [opensift-client]=oc
-    [openshift-install]=openshift-install
-    [oc-mirror]=oc-mirror
-    [ccoctl]=ccoctl
-    [opm]=opm
-  )
   for tool in "${!tools[@]}"; do
     if [[ ${tool == oc-mirror } ]]; then
       file_name="${tool}.tar.gz"
@@ -62,6 +45,28 @@ install_version() {
     printf "file_name: ${filename}\n"
     printf "URL: ${url}\n"
   done
+  
+	echo "* Downloading $TOOL_NAME release $version..."
+	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+}
+
+
+
+install_version() {  
+  local install_type="$1"
+	local version="$2"
+	local install_path="${3%/bin}/bin"
+  local arch="$4"
+  local platform="$5"
+  
+#  declare -A tools=(
+#    [opensift-client]=oc
+#    [openshift-install]=openshift-install
+#    [oc-mirror]=oc-mirror
+#    [ccoctl]=ccoctl
+#    [opm]=opm
+#  )
+
 #
 	#if [ "$install_type" != "version" ]; then
 	#	fail "asdf-$TOOL_NAME supports release installs only"
