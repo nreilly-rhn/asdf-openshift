@@ -7,10 +7,10 @@ declare -A tools=(
   [openshift-install]=openshift-install
   [oc-mirror]=oc-mirror
   [ccoctl]=ccoctl
-  [opm]=opm
+  [opm]=opm-rhel8
 )
 fail() {
-	echo -e "asdf-$TOOL_NAME: $*"
+	echo -e "asdf-openshift: $*"
 	exit 1
 }
 
@@ -74,7 +74,6 @@ install_version() {
       fi
     tar xzf "${ASDF_DOWNLOAD_PATH}"/"${filename}" -C "${ASDF_DOWNLOAD_PATH}" --exclude README.md
     cp  "${ASDF_DOWNLOAD_PATH}/${tools[$tool]}" "${install_path}" 
-    done
 		cp -r "${ASDF_DOWNLOAD_PATH}" "$install_path"
 #
 		local tool_cmd
@@ -82,10 +81,11 @@ install_version() {
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
 #
 		echo "${tools[$tool]} $version installation was successful!"
-	) || (
-		rm -rf "$install_path"
-		fail "An error occurred while installing ${tools[$tool]} $version."
-	)
+	  ) || (
+	  	rm -rf "$install_path"
+	  	fail "An error occurred while installing ${tools[$tool]} $version."
+	  )
+  done
 }
 
 get_arch() {
