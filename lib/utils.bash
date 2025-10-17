@@ -38,15 +38,15 @@ download_release() {
 
     url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/${filename}"
     
-    printf "* Downloading $tool release $version..."
-	  curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+    printf "* Downloading $tool release $version...\n"
+	  curl "${curl_opts[@]}" -o "${ASDF_DOWNLOAD_PATH}"/"$filename" -C - "$url" || fail "Could not download $url"
     
     #printf "${tool}: ${tools[$tool]}\n"
     #printf "version: ${version}\n"
     #printf "arch: ${arch}\n"
     #printf "platform: ${platform}\n"
     #printf "filename: ${file_name}\n"
-    printf "URL: ${url}\n"
+    #printf "URL: ${url}\n"
   done
 }
 
