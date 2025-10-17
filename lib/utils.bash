@@ -35,18 +35,19 @@ download_release() {
     else
       file_name="${tool}-${platform}-${version}.tar.gz"
     fi
+
     url="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${version}/${file_name}"
-    #curl "${curl_opts}" 
-    printf "${tool}: ${tools[$tool]}\n"
-    printf "version: ${version}\n"
-    printf "arch: ${arch}\n"
-    printf "platform: ${platform}\n"
-    printf "file_name: ${file_name}\n"
+    
+    printf "* Downloading $tool release $version..."
+	  curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+    
+    #printf "${tool}: ${tools[$tool]}\n"
+    #printf "version: ${version}\n"
+    #printf "arch: ${arch}\n"
+    #printf "platform: ${platform}\n"
+    #printf "file_name: ${file_name}\n"
     printf "URL: ${url}\n"
   done
-
-	echo "* Downloading $TOOL_NAME release $version..."
-	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
 
