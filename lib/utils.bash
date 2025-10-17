@@ -72,7 +72,8 @@ install_version() {
         filename="${tool}-${platform}-${version}.tar.gz"
       fi
       tar xzf "${ASDF_DOWNLOAD_PATH}"/"${filename}" -C "${ASDF_DOWNLOAD_PATH}" --exclude README.md
-      cp  "${ASDF_DOWNLOAD_PATH}/${tools[$tool]}" "${install_path}" 
+      chmod +x "${ASDF_DOWNLOAD_PATH}/${tools[$tool]}"
+      cp "${ASDF_DOWNLOAD_PATH}/${tools[$tool]}" "${install_path}" 
 #
 		  local tool_cmd
 		  tool_cmd="$(echo "${tools[$tool]}" | cut -d' ' -f1)"
